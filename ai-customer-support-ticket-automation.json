@@ -1,0 +1,411 @@
+{
+  "name": "AI Customer Support Ticket Automation",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "2f91cd15-07aa-4a85-9719-6d0274bb650b",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f2effd5d-332d-4d4d-b308-5e320893ea9c",
+              "name": "customer_name",
+              "value": "Alex Morgan",
+              "type": "string"
+            },
+            {
+              "id": "c44d6a53-d6d5-41f6-bac5-02905fdde1fb",
+              "name": "email",
+              "value": "alex.morgan@example.com",
+              "type": "string"
+            },
+            {
+              "id": "966baf12-7691-4c87-8a33-73f387ba94cb",
+              "name": "subject",
+              "value": "Unable to access my account",
+              "type": "string"
+            },
+            {
+              "id": "40e99805-4116-44ae-b4d0-6a671dfe611e",
+              "name": "message",
+              "value": "I have been locked out of my account and cannot reset my password. This is urgent because I need to submit a report today.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        224,
+        0
+      ],
+      "id": "f932c87d-84e2-45ff-80df-9e98bb61a4e7",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "11001ea5-e827-439a-b5ca-06a7225f34e7",
+              "leftValue": "={{ $json.message }}",
+              "rightValue": "urgent",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        448,
+        0
+      ],
+      "id": "74be71be-867d-49a1-b86a-1e9da4023c18",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e9a580df-bd23-492a-86b0-329a2dfa3032",
+              "name": "Field name",
+              "value": "priority",
+              "type": "string"
+            },
+            {
+              "id": "eb8d7416-c922-4e59-993a-17586a2fc22c",
+              "name": "Type",
+              "value": "String",
+              "type": "string"
+            },
+            {
+              "id": "636b4fb9-62be-41f0-a708-13f28d6176f3",
+              "name": "Value",
+              "value": "High",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        672,
+        -96
+      ],
+      "id": "cf1e6418-d446-46ec-933f-ec6b8467460a",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5160ab8f-53cf-466c-a5a7-034c1eefa270",
+              "name": "Field name",
+              "value": "priority",
+              "type": "string"
+            },
+            {
+              "id": "981724cd-de33-4ef8-885c-07c7b0610679",
+              "name": "Type",
+              "value": "String",
+              "type": "string"
+            },
+            {
+              "id": "c01598fd-fde4-4f1f-8678-a71b6f150371",
+              "name": "Value",
+              "value": "Normal",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        672,
+        112
+      ],
+      "id": "66b3ce43-2c5e-481b-b82c-3f9304fe550e",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "e61b7887-ccae-4903-8ecf-5810c58af8b4",
+              "leftValue": "={{ $json.subject }}",
+              "rightValue": "account",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        1280,
+        -96
+      ],
+      "id": "b72c8a3e-030f-47d4-9591-aea43dcc9df0",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "ce0da1b4-caaa-44a7-9421-92b7176578e8",
+              "leftValue": "=\t{{ $json.subject }}",
+              "rightValue": "account",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        1504,
+        -192
+      ],
+      "id": "d6a6863c-2e87-440a-a2a4-0a7b06275f82",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f786b9ce-0aa9-4eb1-8def-0b3a2f7b89c7",
+              "name": "category",
+              "value": "Account Access",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1728,
+        -240
+      ],
+      "id": "d83d597e-7056-41d3-944a-e76dfc03f427",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2ee47760-a1af-4cfe-80b7-e48a781f7a91",
+              "name": "category",
+              "value": "General Support",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1728,
+        -80
+      ],
+      "id": "87ed228e-892f-490c-8b8b-c641817bf11d",
+      "name": "Edit Fields4"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        896,
+        -96
+      ],
+      "id": "0367c77a-3fd1-4b15-b58c-0206e1f73756",
+      "name": "Merge"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "447c2729-57e0-4799-9fc1-a180b201a1d2",
+  "meta": {
+    "instanceId": "5b1e0b1f788ced6fcc81f41b4f444b35dec793c3abe6b0f2c5852fb85a367ce3"
+  },
+  "nodeGroups": [],
+  "id": "14khKmKgMq8tZbKU",
+  "tags": []
+}
